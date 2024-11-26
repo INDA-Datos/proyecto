@@ -1,39 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('upload-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
+document.getElementById("upload-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fileInput = document.getElementById("file-input");
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
 
-        const formData = new FormData();
-        const fileInput = document.getElementById('file-input');
-        formData.append('file', fileInput.files[0]);
+    try {
+        const response = await fetch("/process_data", {
+            method: "POST",
+            body: formData,
+        });
 
-        try {
-            const response = await fetch('/process', {
-                method: 'POST',
-                body: formData,
+        const data = await response.json();
+
+        if (response.ok) {
+            const kpiContainer = document.getElementById("kpi-container");
+            kpiContainer.innerHTML = "";
+
+            Object.keys(data).forEach((key) => {
+                const kpiBox = document.createElement("div");
+                kpiBox.className = "kpi-box";
+                kpiBox.innerHTML = `
+                    <h3>${key}</h3>
+                    <p>${data[key]}</p>
+                `;
+                kpiContainer.appendChild(kpiBox);
             });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                document.getElementById('result').innerHTML = `<p>${result.message}</p>`;
-
-                const statsDiv = document.getElementById('stats');
-                statsDiv.innerHTML = `<h2>Estadísticas:</h2><pre>${JSON.stringify(result.stats, null, 2)}</pre>`;
-
-                const graph = document.getElementById('graph');
-                graph.src = result.graph_url;
-                graph.style.display = 'block';
-
-                const downloadButton = document.getElementById('download-button');
-                downloadButton.style.display = 'block';
-                downloadButton.onclick = () => {
-                    window.location.href = result.download_url;
-                };
-            } else {
-                document.getElementById('result').innerHTML = `<p>Error: ${result.error}</p>`;
-            }
-        } catch (error) {
-            document.getElementById('result').innerHTML = `<p>Error: ${error.message}</p>`;
+        } else {
+            alert(data.error || "Ocurrió un error procesando los datos.");
         }
-    });
+    } catch (error) {
+        alert("Error al procesar los datos.");
+        console.error(error);
+    }
 });

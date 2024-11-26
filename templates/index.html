@@ -4,25 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>Aplicación de Ingeniería de Datos</title>
+    <title>Exploración y Análisis de Datos</title>
 </head>
 <body>
     <header>
-        <h1>Análisis de Datos de Ecommerce</h1>
+        <h1>Exploración y Análisis de Datos de E-commerce</h1>
     </header>
     <main>
         <form id="upload-form" enctype="multipart/form-data">
-            <label for="file-input">Sube un archivo JSON:</label>
+            <label for="file-input">Sube tu archivo JSON:</label>
             <input type="file" id="file-input" name="file" accept=".json">
             <button type="submit">Procesar</button>
         </form>
-        <div id="result"></div>
-        <div id="stats"></div>
-        <div id="graph-container">
-        <img id="graph" style="display: none;" alt="Gráfico">
+        <div id="kpi-container" class="grid-container">
+            <!-- Resultados dinámicos -->
         </div>
-<button id="download-button" style="display: none;">Descargar JSON Procesado</button>
-
     </main>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
