@@ -1,1 +1,42 @@
-<h1>    hola </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link  rel="stylesheet" href="{{ url_for('static', filename='css/machinestyle.css') }}">
+    <title>Machine Learning</title>
+</head>
+<body>
+<header>
+    <h1>Modelos de Machine Learning</h1>
+</header>
+
+<main>
+
+    <a href="javascript:history.back()" class="back-button">Regresar</a>
+
+    <form id="upload-form" enctype="multipart/form-data">
+        <label for="file-input">Sube tu archivo JSON:</label>
+        <input type="file" id="file-input" name="file" accept=".json">
+        <button type="submit">Procesar</button>
+    </form>
+
+    <section id="results-section" class="hidden">
+        <h2>Resultados de los Modelos</h2>
+        <div id="results-container"></div>
+    </section>
+</main>
+
+<!-- Modal -->
+<div id="modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="spinner"></div>
+        <p>Procesando archivo JSON, por favor espera...</p>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/machineLearning.js') }}"></script>
+</body>
+</html>
+
