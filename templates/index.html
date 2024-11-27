@@ -7,19 +7,74 @@
     <title>Exploración y Análisis de Datos</title>
 </head>
 <body>
-    <header>
-        <h1>Exploración y Análisis de Datos de E-commerce</h1>
-    </header>
-    <main>
-        <form id="upload-form" enctype="multipart/form-data">
-            <label for="file-input">Sube tu archivo JSON:</label>
-            <input type="file" id="file-input" name="file" accept=".json">
-            <button type="submit">Procesar</button>
-        </form>
-        <div id="kpi-container" class="grid-container">
-            <!-- Resultados dinámicos -->
+<header>
+    <h1>Exploración y Análisis de Datos de E-commerce</h1>
+</header>
+
+<main>
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <div class="side-menu">
+        <button id="menu-btn" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div id="sidebar-content" class="menu-options">
+            <button class="menu-button" onclick="window.location.href='/LimpiezaDatos'">Limpieza de Datos</button>
+            <button class="menu-button" onclick="window.location.href='/machine_learning'">Machine Learning</button>
         </div>
-    </main>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    </div>
+
+    <!-- Formulario para subir archivo JSON -->
+    <form id="upload-form" enctype="multipart/form-data">
+        <label for="file-input">Sube tu archivo JSON:</label>
+        <input type="file" id="file-input" name="file" accept=".json">
+        <button type="submit">Procesar</button>
+    </form>
+
+    <!-- Sección de KPIs -->
+    <section class="kpi-section">
+        <h2>KPIs</h2>
+        <div id="kpi-container" class="kpi-grid">
+            <!-- Los KPIs serán generados dinámicamente -->
+        </div>
+    </section>
+
+    <!-- Sección de Valores Atípicos -->
+    <section class="outlier-section">
+        <h2>Valores Atípicos</h2>
+        <div id="outlier-container" class="kpi-grid">
+            <!-- Los valores atípicos serán generados dinámicamente -->
+        </div>
+    </section>
+
+    <!-- Sección de Gráficos -->
+    <section class="graph-section">
+        <h2>Gráficos</h2>
+        <div id="graph-container" class="graph-grid">
+            <!-- Los gráficos serán generados dinámicamente -->
+        </div>
+    </section>
+</main>
+
+<!-- Modal de carga -->
+<div id="modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="spinner"></div>
+        <p>Procesando archivo JSON, por favor espera...</p>
+    </div>
+</div>
+
+<script>
+    // Lógica para mostrar y ocultar el menú lateral
+    document.getElementById('menu-btn').addEventListener('click', function () {
+        const sidebarContent = document.getElementById('sidebar-content');
+        sidebarContent.classList.toggle('show');
+    });
+</script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
